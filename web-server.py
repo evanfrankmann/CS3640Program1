@@ -47,6 +47,7 @@ while True:
         #Send HTTP response message for file not found
         responseHeader = 'HTTP/1.1 404 Not Found\r\n\r\n'
         connectionSocket.send(responseHeader.encode()) 
+        connectionSocket.send("<html><head></head><body><h1>404 Not Found</h1></body></html>\r\n".encode())
         
         #Close client socket 
         connectionSocket.close()
