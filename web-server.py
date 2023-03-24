@@ -1,4 +1,4 @@
-from socket import socket, AF_INET, SOCK_STREAM
+from socket import *
 import sys 
 import os
  
@@ -33,7 +33,9 @@ while True:
         outputdata = f.read()
         
         #Send the HTTP response header line to the connection socket
-        responseHeader = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\n\r\n'.format(len(outputdata))
+        responseHeader = 'HTTP/1.1 200 OK\r\n'
+        responseHeader += 'Content-Type: text/html\r\n'
+        responseHeader += 'Content-Length: {}\r\n\r\n'.format(len(outputdata))
         connectionSocket.send(responseHeader.encode())
 
         #Send the content of the requested file to the client 
@@ -45,9 +47,11 @@ while True:
     
     except IOError:
         #Send HTTP response message for file not found
-        responseHeader = 'HTTP/1.1 404 Not Found\r\n\r\n'
-        connectionSocket.send(responseHeader.encode()) 
         responseMessage = '<html><head></head><body><h1>404 Not Found</h1></body></html>'
+        responseHeader = 'HTTP/1.1 404 Not Found\r\n'
+        responseHeader += 'Content-Type: text/html\r\n'
+        responseHeader += 'Content-Length: {}\r\n\r\n'.format(len(responseMessage))
+        connectionSocket.send(responseHeader.encode()) 
         connectionSocket.send(responseMessage.encode())
         
         #Close client socket 
