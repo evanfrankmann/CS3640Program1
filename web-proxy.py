@@ -17,7 +17,6 @@ def recvall(sock):
 
 # Create a server socket, bind it to a port and start listening
 listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 listener.bind(('', 51213))
 listener.listen(1)
 print('Ready to serve...')
