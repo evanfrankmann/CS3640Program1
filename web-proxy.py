@@ -17,7 +17,8 @@ def recvall(sock):
 
 # Create a server socket, bind it to a port and start listening
 listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-listener.bind(('', 51213))
+portNumber = 51213
+listener.bind(('', portNumber))
 listener.listen(1)
 print('Ready to serve...')
 
@@ -94,8 +95,6 @@ while True:
         outputdata = GET_response
 
     # send the outputdata (GET response) back to the client
-    clientSide.send('HTTP/1.0 200 OK\r\n'.encode())
-    clientSide.send('Content-Type:text/html\r\n\r\n'.encode())
     clientSide.sendall(outputdata)
     print("data sent")
 
